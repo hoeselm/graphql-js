@@ -57,7 +57,7 @@ describe('Star Wars Validation Tests', () => {
           }
         }
       `;
-      return expect(validationErrors(query)).to.not.be.empty;
+      return expect(validationErrors(query)).to.be.empty;
     });
 
     it('Requires fields on objects', () => {
@@ -91,7 +91,7 @@ describe('Star Wars Validation Tests', () => {
           }
         }
       `;
-      return expect(validationErrors(query)).to.not.be.empty;
+      return expect(validationErrors(query)).to.be.empty;
     });
 
     it('Allows object fields in fragments', () => {

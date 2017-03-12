@@ -26,9 +26,6 @@ import { VariablesAreInputTypes } from './rules/VariablesAreInputTypes';
 // Spec Section: "Leaf Field Selections"
 import { ScalarLeafs } from './rules/ScalarLeafs';
 
-// Spec Section: "Field Selections on Objects, Interfaces, and Unions Types"
-import { FieldsOnCorrectType } from './rules/FieldsOnCorrectType';
-
 // Spec Section: "Fragment Name Uniqueness"
 import { UniqueFragmentNames } from './rules/UniqueFragmentNames';
 
@@ -99,7 +96,6 @@ export const specifiedRules: Array<(context: ValidationContext) => any> = [
   FragmentsOnCompositeTypes,
   VariablesAreInputTypes,
   ScalarLeafs,
-  FieldsOnCorrectType,
   UniqueFragmentNames,
   KnownFragmentNames,
   NoUnusedFragments,

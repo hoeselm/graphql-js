@@ -10,11 +10,8 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { testSchema } from './harness';
-import { validate, specifiedRules } from '../';
-import { visitUsingRules } from '../validate';
+import { validate } from '../';
 import { parse } from '../../language';
-import { TypeInfo } from '../../utilities/TypeInfo';
-
 
 function expectValid(schema, queryString) {
   const errors = validate(schema, parse(queryString));
@@ -36,44 +33,6 @@ describe('Validate: Supports full validation', () => {
         }
       }
     `);
-  });
-
-  // NOTE: experimental
-  it('validates using a custom TypeInfo', () => {
-
-    // This TypeInfo will never return a valid field.
-    const typeInfo = new TypeInfo(testSchema, () => null);
-
-    const ast = parse(`
-      query {
-        catOrDog {
-          ... on Cat {
-            furColor
-          }
-          ... on Dog {
-            isHousetrained
-          }
-        }
-      }
-    `);
-
-    const errors = visitUsingRules(
-      testSchema,
-      typeInfo,
-      ast,
-      specifiedRules
-    );
-
-    const errorMessages = errors.map(err => err.message);
-
-    expect(errorMessages).to.deep.equal([
-      'Cannot query field "catOrDog" on type "QueryRoot". ' +
-      'Did you mean "catOrDog"?',
-      'Cannot query field "furColor" on type "Cat". ' +
-      'Did you mean "furColor"?',
-      'Cannot query field "isHousetrained" on type "Dog". ' +
-      'Did you mean "isHousetrained"?'
-    ]);
   });
 
 });
