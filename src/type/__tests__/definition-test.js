@@ -18,7 +18,8 @@ import {
   GraphQLNonNull,
   GraphQLInt,
   GraphQLString,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLStringOrInt
 } from '../';
 
 import { describe, it } from 'mocha';
@@ -54,7 +55,7 @@ const BlogArticle = new GraphQLObjectType({
     id: { type: GraphQLString },
     isPublished: { type: GraphQLBoolean },
     author: { type: BlogAuthor },
-    title: { type: GraphQLString },
+    title: { type: GraphQLStringOrInt },
     body: { type: GraphQLString }
   }
 });
@@ -119,8 +120,8 @@ describe('Type System: Example', () => {
     const titleField = articleFieldType instanceof GraphQLObjectType &&
       articleFieldType.getFields()[('title': string)];
     expect(titleField && titleField.name).to.equal('title');
-    expect(titleField && titleField.type).to.equal(GraphQLString);
-    expect(titleField && titleField.type.name).to.equal('String');
+    expect(titleField && titleField.type).to.equal(GraphQLStringOrInt);
+    expect(titleField && titleField.type.name).to.equal('StringOrInt');
 
     const authorField = articleFieldType instanceof GraphQLObjectType &&
       articleFieldType.getFields()[('author': string)];

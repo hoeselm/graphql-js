@@ -44,7 +44,8 @@ import {
   GraphQLFloat,
   GraphQLString,
   GraphQLBoolean,
-  GraphQLID
+  GraphQLID,
+  GraphQLStringOrInt,
 } from '../type/scalars';
 
 import { DirectiveLocation, GraphQLDirective } from '../type/directives';
@@ -104,6 +105,7 @@ export function buildClientSchema(
     Float: GraphQLFloat,
     Boolean: GraphQLBoolean,
     ID: GraphQLID,
+    StringOrInt: GraphQLStringOrInt,
     __Schema,
     __Directive,
     __DirectiveLocation,

@@ -69,6 +69,7 @@ export {
   GraphQLString,
   GraphQLBoolean,
   GraphQLID,
+  GraphQLStringOrInt,
 } from './scalars';
 
 export {

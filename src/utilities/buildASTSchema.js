@@ -57,6 +57,7 @@ import {
   GraphQLFloat,
   GraphQLBoolean,
   GraphQLID,
+  GraphQLStringOrInt,
 } from '../type/scalars';
 
 import {
@@ -231,6 +232,7 @@ export function buildASTSchema(ast: DocumentNode): GraphQLSchema {
     Float: GraphQLFloat,
     Boolean: GraphQLBoolean,
     ID: GraphQLID,
+    StringOrInt: GraphQLStringOrInt,
     __Schema,
     __Directive,
     __DirectiveLocation,

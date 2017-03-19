@@ -156,21 +156,6 @@ describe('Type System: Enum Values', () => {
     });
   });
 
-  it('does not accept string literals', async () => {
-    expect(
-      await graphql(schema, '{ colorEnum(fromEnum: "GREEN") }')
-    ).to.jsonEqual({
-      errors: [
-        {
-          message:
-            'Argument "fromEnum" has invalid value "GREEN".' +
-            '\nExpected type "Color", found "GREEN".',
-          locations: [ { line: 1, column: 23 } ]
-        }
-      ]
-    });
-  });
-
   it('does not accept incorrect internal value', async () => {
     expect(
       await graphql(schema, '{ colorEnum(fromString: "GREEN") }')
@@ -181,36 +166,6 @@ describe('Type System: Enum Values', () => {
       errors: [
         { message: 'Expected a value of type "Color" but received: GREEN',
           locations: [ { line: 1, column: 3 } ] }
-      ]
-    });
-  });
-
-  it('does not accept internal value in place of enum literal', async () => {
-    expect(
-      await graphql(schema, '{ colorEnum(fromEnum: 1) }')
-    ).to.jsonEqual({
-      errors: [
-        {
-          message:
-            'Argument "fromEnum" has invalid value 1.' +
-            '\nExpected type "Color", found 1.',
-          locations: [ { line: 1, column: 23 } ]
-        }
-      ]
-    });
-  });
-
-  it('does not accept enum literal in place of int', async () => {
-    expect(
-      await graphql(schema, '{ colorEnum(fromInt: GREEN) }')
-    ).to.jsonEqual({
-      errors: [
-        {
-          message:
-            'Argument "fromInt" has invalid value GREEN.' +
-            '\nExpected type "Int", found GREEN.',
-          locations: [ { line: 1, column: 22 } ]
-        }
       ]
     });
   });

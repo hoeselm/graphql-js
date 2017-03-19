@@ -34,6 +34,21 @@ function coerceInt(value: mixed): ?number {
   );
 }
 
+function coerceStringOrInt(value: mixed): ?mixed {
+  const num = Number(value);
+  if (num === num && num <= MAX_INT && num >= MIN_INT) {
+    return (num < 0 ? Math.ceil : Math.floor)(num);
+  }
+  const string = String(value);
+  if (string === string) {
+    return string;
+  }
+  throw new TypeError(
+    'StringOrInt cannot represent non 32-bit signed integer value or string:' +
+    String(value)
+  );
+}
+
 export const GraphQLInt = new GraphQLScalarType({
   name: 'Int',
   description:
@@ -43,6 +58,26 @@ export const GraphQLInt = new GraphQLScalarType({
   parseValue: coerceInt,
   parseLiteral(ast) {
     if (ast.kind === Kind.INT) {
+      const num = parseInt(ast.value, 10);
+      if (num <= MAX_INT && num >= MIN_INT) {
+        return num;
+      }
+    }
+    return null;
+  }
+});
+
+export const GraphQLStringOrInt = new GraphQLScalarType({
+  name: 'StringOrInt',
+  description:
+    'The `IntOrString` scalar type represents non-fractional signed whole ' +
+    'numeric values or textual data, represented as UTF-8. Int can ' +
+    'represent values between -(2^31) and 2^31 - 1 and string can ' +
+    'represent free-form human-readable text ',
+  serialize: coerceStringOrInt,
+  parseValue: coerceStringOrInt,
+  parseLiteral(ast) {
+    if (ast.kind === Kind.INT || ast.kind === Kind.STRING) {
       const num = parseInt(ast.value, 10);
       if (num <= MAX_INT && num >= MIN_INT) {
         return num;

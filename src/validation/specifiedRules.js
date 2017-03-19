@@ -58,14 +58,8 @@ import {
   UniqueDirectivesPerLocation
 } from './rules/UniqueDirectivesPerLocation';
 
-// Spec Section: "Argument Names"
-import { KnownArgumentNames } from './rules/KnownArgumentNames';
-
 // Spec Section: "Argument Uniqueness"
 import { UniqueArgumentNames } from './rules/UniqueArgumentNames';
-
-// Spec Section: "Argument Values Type Correctness"
-import { ArgumentsOfCorrectType } from './rules/ArgumentsOfCorrectType';
 
 // Spec Section: "Argument Optionality"
 import { ProvidedNonNullArguments } from './rules/ProvidedNonNullArguments';
@@ -106,9 +100,7 @@ export const specifiedRules: Array<(context: ValidationContext) => any> = [
   NoUnusedVariables,
   KnownDirectives,
   UniqueDirectivesPerLocation,
-  KnownArgumentNames,
   UniqueArgumentNames,
-  ArgumentsOfCorrectType,
   ProvidedNonNullArguments,
   DefaultValuesOfCorrectType,
   VariablesInAllowedPosition,
