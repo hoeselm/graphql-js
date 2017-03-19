@@ -82,6 +82,7 @@ export const GraphQLStringOrInt = new GraphQLScalarType({
       if (num <= MAX_INT && num >= MIN_INT) {
         return num;
       }
+      return ast.kind === Kind.STRING ? ast.value : null;
     }
     return null;
   }
